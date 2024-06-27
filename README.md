@@ -44,6 +44,18 @@ Help:
 
 ## Example
 
+You can simply type in some notes in order to find the best tabs for your harp layout (`/layout`), e.g. Tetris:
+
+```
+> E2 B C2 D2 C2 B A | A C2 E2 D2 C2 B | C2 D2 E2 | C2 A A
+
+Your Song
+Diatonic Major (Score: 100.0%)
+-6  5 -5  6 -5  5 -4 | -4 -5 -6  6 -5  5 | -5  6 -6 | -5 -4 -4
+```
+
+You can list your songs and get a specific one as follows:
+
 ```
 > list
 
