@@ -1,0 +1,4 @@
+setuptools
+pyTelegramBotAPI
+partitura
+music21
