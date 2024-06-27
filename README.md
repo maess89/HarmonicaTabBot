@@ -1,7 +1,7 @@
 # Harmonica Tab Bot
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-This bot finds the best harmonica (mouth harp) tabs for a given song:
+This telegram bot finds the best harmonica (mouth harp) tabs for a given song:
 
 - Compute the best tabs for a song for the following 10-holes harmonica layouts: `Diatonic Major`, `Natural Minor`, `Harmonic Minor`, `Lee Oskar® - Melody Maker™` and `Chromatic Harp (12 holes)`
 - Convert song notes to harmonica tabs
