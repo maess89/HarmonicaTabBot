@@ -176,7 +176,12 @@ def localize(user_session, key):
 
 def recalculateLayoutScores(user_session):
     songs =  user_session.getSongBook().get_songs()
+
+    songs_copy = []
     for song in songs:
+        songs_copy.append(song)
+    
+    for song in songs_copy:
         print("Recalculating Layout Scores for {}".format(song["title"]))
         NotesImporter._addLayoutScoreToSong(song)
         user_session.getSongBook().add_song(song)

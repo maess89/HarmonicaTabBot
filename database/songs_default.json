@@ -355,38 +355,38 @@
         "layout_scores": {
             "Major_Diatonic": {
                 "total": 36,
-                "bends": 16,
-                "unknowns": 18,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Natural_Minor": {
                 "total": 36,
-                "bends": 16,
-                "unknowns": 17,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Harmonic_Minor": {
                 "total": 36,
-                "bends": 12,
-                "unknowns": 18,
+                "bends": 5,
+                "unknowns": 0,
                 "slides": 0
             },
             "Melody_Maker": {
                 "total": 36,
-                "bends": 14,
-                "unknowns": 19,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Chromatic": {
                 "total": 36,
                 "bends": 0,
                 "unknowns": 0,
-                "slides": 13
+                "slides": 0
             },
             "Steel_Tongue_Major_13": {
                 "total": 36,
                 "bends": 0,
-                "unknowns": 24,
+                "unknowns": 0,
                 "slides": 0
             }
         }
@@ -670,37 +670,37 @@
                 "total": 97,
                 "bends": 0,
                 "unknowns": 1,
-                "unknowns_and_bends": 1
+                "slides": 0
             },
             "Natural_Minor": {
                 "total": 97,
                 "bends": 1,
                 "unknowns": 0,
-                "unknowns_and_bends": 1
+                "slides": 0
             },
             "Harmonic_Minor": {
                 "total": 97,
                 "bends": 17,
                 "unknowns": 0,
-                "unknowns_and_bends": 17
+                "slides": 0
             },
             "Melody_Maker": {
                 "total": 97,
                 "bends": 0,
                 "unknowns": 0,
-                "unknowns_and_bends": 0
+                "slides": 0
             },
             "Chromatic": {
-                "total": 36,
+                "total": 97,
                 "bends": 0,
                 "unknowns": 0,
-                "slides": 13
+                "slides": 0
             },
             "Steel_Tongue_Major_13": {
                 "total": 97,
                 "bends": 0,
-                "unknowns": 1,
-                "unknowns_and_bends": 1
+                "unknowns": 0,
+                "slides": 0
             }
         }
     },
@@ -879,38 +879,38 @@
         "layout_scores": {
             "Major_Diatonic": {
                 "total": 63,
-                "bends": 25,
-                "unknowns": 28,
+                "bends": 0,
+                "unknowns": 2,
                 "slides": 0
             },
             "Natural_Minor": {
                 "total": 63,
-                "bends": 45,
-                "unknowns": 12,
+                "bends": 2,
+                "unknowns": 0,
                 "slides": 0
             },
             "Harmonic_Minor": {
                 "total": 63,
-                "bends": 8,
-                "unknowns": 28,
+                "bends": 6,
+                "unknowns": 0,
                 "slides": 0
             },
             "Melody_Maker": {
                 "total": 63,
-                "bends": 14,
-                "unknowns": 36,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Chromatic": {
                 "total": 63,
                 "bends": 0,
                 "unknowns": 0,
-                "slides": 10
+                "slides": 0
             },
             "Steel_Tongue_Major_13": {
                 "total": 63,
                 "bends": 0,
-                "unknowns": 44,
+                "unknowns": 0,
                 "slides": 0
             }
         }
@@ -1213,38 +1213,38 @@
         "layout_scores": {
             "Major_Diatonic": {
                 "total": 42,
-                "bends": 10,
-                "unknowns": 18,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Natural_Minor": {
                 "total": 42,
-                "bends": 24,
-                "unknowns": 10,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Harmonic_Minor": {
                 "total": 42,
                 "bends": 6,
-                "unknowns": 18,
+                "unknowns": 0,
                 "slides": 0
             },
             "Melody_Maker": {
                 "total": 42,
-                "bends": 24,
-                "unknowns": 10,
+                "bends": 0,
+                "unknowns": 0,
                 "slides": 0
             },
             "Chromatic": {
                 "total": 42,
                 "bends": 0,
                 "unknowns": 0,
-                "slides": 12
+                "slides": 0
             },
             "Steel_Tongue_Major_13": {
                 "total": 42,
                 "bends": 0,
-                "unknowns": 30,
+                "unknowns": 0,
                 "slides": 0
             }
         }
