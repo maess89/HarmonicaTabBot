@@ -211,7 +211,7 @@ def searchBestTabsForSong(song_notes, layout, bending=False, limit=3):
     mean_harp = statistics.mean(pitches_harp)
 
     # 4. calculate the difference OFFSET of mean bet. harp layout & song
-    offset_harp_song =mean_harp - mean_song
+    offset_harp_song = mean_harp - mean_song
 
     offset_min_to_mean_song = min(pitches_song) - mean_song
     offset_max_to_mean_song = max(pitches_song) - mean_song
@@ -220,9 +220,10 @@ def searchBestTabsForSong(song_notes, layout, bending=False, limit=3):
     # 7. shift now the song as follows: song + OFFSET + [LOWEST_NOTE_OFFSET, ..-1, 0, 1, ., HIGHEST_NOTE_OFFSET]
     tab_candidates = []
 
-    # calc pitch shift boundaries
-    start = math.floor(offset_min_to_mean_song) 
-    end = math.ceil(offset_max_to_mean_song)    
+    # calc pitch shift boundaries (+ some padding)
+    start = math.floor(offset_min_to_mean_song)-1
+    end = math.ceil(offset_max_to_mean_song)+1
+
     last_tabs = None
     for pitch_shift in range(start, end + 1):
         pitch_offset = int(offset_harp_song + pitch_shift)
