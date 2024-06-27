@@ -203,6 +203,9 @@ def searchBestTabsForSong(song_notes, layout, bending=False, limit=3):
     # 2. get midi pitch array of harp layout
     pitches_harp = _getMidiPitchArrayOfLayout(layout)
 
+    if len(pitches_song) == 0 or len(pitches_harp) == 0:
+        return []
+
     # 3. get mean of harp layout, get mean of song MEAN_SONG
     mean_song = statistics.mean(pitches_song)
     mean_harp = statistics.mean(pitches_harp)

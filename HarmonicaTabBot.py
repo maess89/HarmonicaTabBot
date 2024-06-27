@@ -23,11 +23,13 @@ from modules.engine import HarpTabUtils
 from modules.bot import BotUI_Config
 from modules.bot import BotUI_Songbook
 from modules.bot import BotUI_CreateSongDialogue
+from modules.notes import NotesImporter
 
 BOT_TOKEN="bot.token"
+
 with open(BOT_TOKEN, 'r') as file:
     BOT_TOKEN = file.read()
-bot = telebot.TeleBot(BOT_TOKEN, parse_mode=None) 
+bot = telebot.TeleBot(BOT_TOKEN, parse_mode=None)
 
 
 UserSessions={}
@@ -74,6 +76,8 @@ def load_or_create_session(chat_id):
 
 def get_song_by_user_input(user_session, cmd, getRandomOnEmpty=True):
 	cmd = cmd.strip()
+	if cmd.startswith("/"):
+		cmd = cmd[1:]
 	cmd_parts = cmd.split(" ")
 	song = None
 	if len(cmd_parts[0]) == 0 and getRandomOnEmpty:
@@ -121,17 +125,23 @@ def send_howto_convert_message(chat, user_session):
 	message+=HarpTabService.localize(user_session, "howto_body").replace("PLACEHOLDER", HarpTabService.localize(user_session, "add_song_provide_notes"))
 	bot.send_message(chat.id, message)
 	BotUI_CreateSongDialogue.bot_send_howto_dialogue(bot, chat.id, user_session)
-	
+
+def bot_show_song_list(user_session, chat, filter=None):
+	songs = HarpTabService.getSongList(user_session)
+	return_message = "{}\n\n".format(HarpTabService.localize(user_session, 'list_of_your_songs'))
+	for song in songs:
+		return_message+="\t/{}. {}\n".format(song["index"]+1, song["title"])
+	bot.send_message(chat.id, return_message)
 
 def bot_show_song_list_and_filter_by_string(chat, user_session, cmd):
-	songs = HarpTabService.getSongListAndFilterByKeywords(user_session, cmd)
+	songs = HarpTabService.getSongList(user_session, keywords=cmd)
 	if len(songs) == 0:
 		bot.send_message(chat.id, "{}".format(HarpTabService.localize(user_session, 'could_not_find_song_message')))
 		return
 
 	return_message = "{}\n\n".format(HarpTabService.localize(user_session, 'list_of_your_songs'))
-	for song_to_return in songs:
-		return_message+="\t{}. {}\n".format(song_to_return[0]+1, song_to_return[1])
+	for song in songs:
+		return_message+="\t/{}. {}\n".format(song["index"]+1, song["title"])
 	bot.send_message(chat.id, return_message)
 
 def bot_dump_song(bot, chat, song):
@@ -172,24 +182,35 @@ def _user_input_get_command_args(user_input, cmdPatterns):
 			return user_input.replace(cmdPattern, "")
 	return user_input
 
+def bot_convert_song_notes_on_the_fly(user_session, chat, cmd):
+	notes = NotesImporter.createSongByUserInput(user_session.getUserId(), HarpTabService.localize(user_session, "your_song"), "C", cmd)
+	parsed_notes = notes["notes"]
+	if len(parsed_notes) > 0:
+		total_tokens = len(notes["notes"])
+		symbol_cnt = 0
+		for note in parsed_notes:
+			if isinstance(note, list):
+				symbol_cnt+=1
+		note_cnt = total_tokens - symbol_cnt
+		if note_cnt > 2 and (note_cnt/float(total_tokens) > 0.3):
+			convert_and_send_song(chat, user_session, notes)
+			return True
+	return False
+
 def handle_cmd(user_session, chat, cmd):
-	if getChatCallback(user_session.getUserId()) is not None: 
+	if getChatCallback(user_session.getUserId()) is not None:
 		callback_command = getChatCallback(user_session.getUserId())
 		setChatCallback(user_session.getUserId(), None)
 		callback_command = BotUI_CreateSongDialogue.bot_callback(bot, user_session, chat.id, callback_command, cmd)
 		setChatCallback(user_session.getUserId(), callback_command)
-		return 
+		return
 	elif _user_input_is_command(cmd, ["/help", "help", "/start", "start"]):
 		send_welcome_message(chat.id, user_session)
 		return
 	elif _user_input_is_command(cmd, ["/songbook", "songbook"]):
 		BotUI_Songbook.bot_show_songbook_dialogue(bot, user_session, chat)
 	elif _user_input_is_command(cmd, ["/list", "list", "ls"]):
-		songs = HarpTabService.getSongList(user_session)
-		return_message = "{}\n\n".format(HarpTabService.localize(user_session, 'list_of_your_songs'))
-		for song in songs:
-			return_message+="\t{}. {}\n".format(song["index"]+1, song["title"])
-		bot.send_message(chat.id, return_message)
+		bot_show_song_list(user_session, chat)
 	elif _user_input_is_command(cmd, ["/dump", "dump"]):
 		song = get_song_by_user_input(user_session, _user_input_get_command_args(cmd, ["/dump", "dump"]))
 		if song == None:
@@ -221,7 +242,10 @@ def handle_cmd(user_session, chat, cmd):
 		if song is not None:
 			convert_and_send_song(chat, user_session, song)
 		else:
-			bot_show_song_list_and_filter_by_string(chat, user_session, cmd)
+			# Parse User Input for instant conversion feature
+			success = bot_convert_song_notes_on_the_fly(user_session, chat, cmd)
+			if not success:
+				bot_show_song_list_and_filter_by_string(chat, user_session, cmd)
 
 def send_welcome_message(chat_id, user_session):
 	commands = get_commands(user_session)
@@ -276,7 +300,7 @@ def response_bot(message):
 	init_commands(user_session, chat_id)
 	if not user_exists:
 		send_welcome_message(chat_id, user_session)
-		return 
+		return
 
 	bot.set_chat_menu_button(message.chat.id, types.MenuButtonCommands('commands'))
 	handle_cmd(user_session, message.chat, message.text)

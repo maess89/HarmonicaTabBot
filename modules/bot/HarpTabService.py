@@ -30,44 +30,28 @@ localizations = {
 	"en": HarpTabBot_Localization.Localization(lang='en') 
 }
 
-def getSongList(userSession, filter = None):
-    songBook = userSession.getSongBook()
-    songList = []
-    index=0
-    for song in songBook.get_songs_titles():
-        append = filter is None
-        if filter is not None:
-            filterWords = []
-            if " " in filter:
-                filterWords = filter.split(" ")
-            else:
-                filterWords.append(filter)
-            for filterWord in filterWords:
-                append = filterWord.lower() in song.lower()
-        if append:
-            songList.append({
-                "index": index,
-                "title": song
-            })
-        index+=1
-    return songList
-
-def getSongListAndFilterByKeywords(userSession, keywords):
-	# TODO: check difference to filter in getSongList
-	songs = getSongList(userSession, filter = None)
-	songs_to_return =[]
-	if len(keywords) > 2:
-		songs_to_return = []
-		for song in songs:
-			song_title = song["title"]
-			if keywords.lower() in song_title.lower():
-				songs_to_return.append((song["index"], song_title)) 
-	else:
-		for song in songs:
-			song_title = song["title"]
-			if song_title.lower().startswith(keywords.lower()):
-				songs_to_return.append((song["index"], song_title)) 
-	return songs_to_return
+def getSongList(userSession, keywords=None):
+	songBook = userSession.getSongBook()
+	songList = []
+	index=0
+	for song in songBook.get_songs(): 
+		append = True
+		if keywords is not None:
+			append = False
+			song_title = song["title"].lower()
+			if len(keywords) > 2:
+				if keywords.lower() in song_title:
+					append=True
+			else:
+				if song_title.startswith(keywords.lower()):
+					append=True
+		if append:
+			songList.append({
+       	     "index": index,
+        	 "title": song["title"]
+			})
+		index+=1
+	return songList
 
 def getSongByTitle(userSession, title):
     songBook = userSession.getSongBook()
@@ -112,13 +96,6 @@ def getSongByRandom(userSession):
         print("Fallback - No eligable Candidate")
         return userSession.getSongBook().get_random_song() 
     return songs_to_select_from[random.randint(0, len(songs_to_select_from) - 1)]
-
-def querySongs(userSession, query):
-    songTitleList = getSongList(userSession, query)
-    songs = []
-    for songEntry in songTitleList:
-        songs.append(getSongByIndex(userSession, songEntry["index"]))
-    return songs
 
 def getConfig(userSession):
     return userSession.getConfig()

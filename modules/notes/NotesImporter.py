@@ -29,7 +29,8 @@ def _addLayoutScoreToSong(song):
     for harp_layout in HarpLayout.Layout:
         harp = HarpLayout.Harp_Layouts[harp_layout]
         best_tabs = HarpConverter.searchBestTabsForSong(song["notes"], harp, 60)
-        song["layout_scores"][harp_layout.name] = best_tabs[0]["stats"]
+        if len(best_tabs) > 0:
+            song["layout_scores"][harp_layout.name] = best_tabs[0]["stats"]
 
 def _getSongTemplate(creator_id, source):
     return {
@@ -43,7 +44,7 @@ def createSongByUserInput(creator_id, song_title, song_key, user_input_string):
     song["title"] = song_title
     song["key"] = song_key
     song["notes"] = UserInputNotesParser.convert_user_input_notes(user_input_string, song_key)
-    song["raw"] = user_input_string 
+    song["raw"] = user_input_string
     _addLayoutScoreToSong(song)
     return song
 
