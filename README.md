@@ -27,25 +27,24 @@ Please enter /start or /help to the bot in order to get the full command set:
 
 ```
 Settings:
-  o /layout - Set your Harp Layout
-  o /config - Language & other Settings
-  o /songbook - Set Songbook
+  o /layout - Set your harmonica
+  o /config - Bot settings & language
 
 Commands:
-  o /list - List of your Songs
-  o /get - Random Song
-  o /add - Add Song
-  o /delete - Delete Song
-  o /dump - Dump Song Data
+  o /list - List of your songs
+  o /get - Random song
+  o /add - Add song
+  o /delete - Delete song
+  o /dump - Dump song Data
 
 Help:
   o /help - Show help
-  o /howto - How to convert Song Notes to Tabs
+  o /howto - How to convert song notes to tabs
 ```
 
 ## Example
 
-You can simply type in some notes in order to find the best tabs for your harp layout (`/layout`), e.g. Tetris:
+Simply type in some notes in order to find the best tabs for your harp layout (`/layout`), e.g. Tetris:
 
 ```
 > E2 B C2 D2 C2 B A | A C2 E2 D2 C2 B | C2 D2 E2 | C2 A A
@@ -73,7 +72,7 @@ List of your Songs:
 Drunken Sailor
 Diatonic Major (Score: 100.0%)
 
-  6    -6    -6    -6    -6    -6  
+ -6    -6    -6    -6    -6    -6  
  -6    -4    -5    -6  
   6     6     6     6     6     6  
   6     4     5     6  
