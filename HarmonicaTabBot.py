@@ -121,8 +121,6 @@ def convert_and_send_song(chat, user_session, song):
 
 def send_howto_convert_message(chat, user_session):
 	message= HarpTabService.localize(user_session, "howto_title")
-	message+="\n\n"
-	message+=HarpTabService.localize(user_session, "howto_body").replace("PLACEHOLDER", HarpTabService.localize(user_session, "add_song_provide_notes"))
 	bot.send_message(chat.id, message)
 	BotUI_CreateSongDialogue.bot_send_howto_dialogue(bot, chat.id, user_session)
 
